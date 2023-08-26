@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Add Comment | Blog Project{% endblock title %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+
+<div class="container col-lg-6 shadow p-3 mx-auto mt-5">
+    <h1 class="text-center">Add Comment on your Blog</h1>
+    <hr>
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <form  method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" value="Add Comment" class="btn btn-success">
+            </form>
+        </div>
+        <script>
+            var name = "{{ user.id }}";
+            document.getElementById("elder").value
+            = name;
+        </script>
+    </div>
+</div>
+{% else %}
+<strong>You are not logged in, please login to add comment! </strong>
+{% endif %}
+{% endblock content %}

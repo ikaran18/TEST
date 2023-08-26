@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Home | Blog Project{% endblock title %}
+
+{% block content %}
+
+<div class="container col-lg-12 shadow p-3 mx-auto mt-5">
+    <h1>BLOGS</h1>
+    <hr>
+    <div class="row">
+        <div class="col-lg-12 mx-auto">
+            <form  method="POST">
+                {% csrf_token %}
+             
+                <ul>
+                {% for post in object_list %}
+                <li><strong><a href="{% url 'blogdetail' post.pk %}">{{post.title}}</a>--{{post.author}}</strong> 
+                    {% if user.is_authenticated %} 
+                        
+                    {% if user.id == post.author.id %}
+                    <a href="{% url 'edit' post.pk %}">Edit</a>
+                    <a href="{% url 'delete' post.pk %}">Delete</a>
+                    {% endif %}
+
+                     {% endif %}<br>
+                     <br>
+                     <strong>Please , Click on the title for more details about this article.</strong></li><br>
+                 
+                     {% endfor %}
+                     
+                    </ul>
+                   
+                    
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                          <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+                          <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
+                          <li class="page-item"><a class="page-link" href="#">3</a></li>
+                          <li class="page-item"><a class="page-link" href="#">4</a></li>
+                          <li class="page-item"><a class="page-link" href="#">5</a></li>
+
+                        </ul>
+                      </nav>
+                   
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

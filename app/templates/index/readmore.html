@@ -1,0 +1,47 @@
+{% extends 'base/base.html' %}
+{% block title %} {{blog.title}} | Blog Project{% endblock title %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+
+<div class="container mt-5">
+
+    <h1>{{blog.title}}</h1> <strong>By - {{blog.author}} -- {{blog.created_at}}</strong>
+    <br>
+    
+    <hr>
+    {% comment %} <img src="{{blog.photo.url}}" alt="" height="500px"><br><br><br> {% endcomment %}
+    {{blog.content | safe}}
+
+    <br><br><br>
+<hr>
+    <h2> Comments </h2>
+
+    {% if not blog.comments.all %}
+
+    <strong>No Comments</strong>
+    {% else %}
+
+        {% for comment in blog.comments.all %}
+    <strong>
+        {{comment.name}}
+        {{comment.date_added}}
+    </strong>
+    <br>
+    {{comment.body}}
+    <br><br>
+    {% endfor %}
+    {% endif %} <br> 
+    <a href="{% url 'addcomment' blog.pk %}">Add Comment</a>
+    <br>
+<hr>
+    <a href="{% url 'home'%}" class='btn btn-primary btn-sm'>Back to home</a>
+
+</div>
+
+{% else %}
+<strong>You are not loggedin, Please login first!</strong>
+{% endif %}
+{% endblock content %}

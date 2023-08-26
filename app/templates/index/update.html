@@ -1,0 +1,30 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Edit Blog | Blog Project{% endblock title %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+    {% if user.id == blog.author.id %}
+
+
+<div class="container col-lg-6 shadow p-3 mx-auto mt-5">
+    <h1 class="text-center">Edit Your Blog</h1>
+    <hr>
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">comment</button>
+            </form>
+        </div>
+    </div>
+</div>
+    {% else %}
+    <strong>You are not Authorize to edit your blog!</strong>
+    {% endif %}
+{% else %}
+<strong>You are not logged in, please login to edit your blog!</strong>
+{% endif %}
+{% endblock content %}
